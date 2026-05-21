@@ -1,4 +1,9 @@
-import re, getpass, os
+"""Root part of installation: automatically installs required packages which cannot be done during install phase, creates user, ensures homedir"""
+
+
+import re
+import getpass
+import os
 from pathlib import Path
 
 username = input("\n\x1b[38;5;166mInput your username!\x1b[0m\n")
@@ -25,6 +30,3 @@ if yon.strip().lower() == "n":
         homedir=input("What is your home dir enter as absolute path:\n")
 elif not Path.exists("/home"):
     print("/home does not exist. creating...\n")
-    
-    
-print(homedir)

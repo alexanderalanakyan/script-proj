@@ -38,13 +38,15 @@ while true; do
     ))  
   fs=$(lsblk -pnro NAME,FSTYPE | awk -v dev="$devi" '$1 == dev {print $2}')
   if [ -z "$fs" ]; then
-    echo "Not mounted or no filesystem found"
+    echo "no filesystem found"
+    mfs=$(gum choose --header="What filesystem would you like for $devi?" ext4 btrfs)
+    mkfs."$mfs" "$devi"
   fi
     gum confirm "Would you like to mount /dev/$devi to $fdlr?" || continue
 
     mount "$devi" "$fdlr" || continue
-
-    gum confirm "Done with mounts?" && exit || continue
+    mountedevs=$(df -Th)
+    gum confirm "Done with mounts?\n$mountedevs\n are currently mounted" && exit || continue
 done
 }
 tmux 
@@ -64,5 +66,4 @@ while true; do
     if gum confirm "Do you want to edit /dev/$choice?"; then
         sudo fdisk "/dev/$choice"
     fi
-
 done

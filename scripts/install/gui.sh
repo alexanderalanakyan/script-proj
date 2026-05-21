@@ -9,7 +9,6 @@ fi
 
 declare -A pkgs=(
     [tput]="ncurses"
-
     [gum]="gum"
 )
 
@@ -20,19 +19,33 @@ for bin in "${!pkgs[@]}"; do
     fi
 done
 
-iw_footer() {
-    tput sc
-    tput cup $(($(tput lines)-1)) 0
-    tput el
-    echo -n "station list=get stations | station <station> scan=scan for networks && station <station> get-networks=get networks from scan | station <station> connect <network_name>=connect to network"
-    tput rc
-}
-fdisk_footer() {
-    tput sc
-    tput cup $(($(tput lines)-1)) 0
-    tput el
-    echo -n "n=new partition | t=change parition type | w=write | d=delete | m=help | q=quit"
-    tput rc
+
+mt() {
+while true; do
+    devices=$(lsblk -P -o NAME,MOUNTPOINT,TYPE)
+    clear
+
+    echo "Choose which folder you would like to mount:"
+
+    fdlr=$(gum choose $(find /mnt/ -type d))
+
+    devi=$(gum choose $(
+         echo "$devices" |
+        awk '$3 ~ /part/ {
+            gsub(/NAME=|"/, "", $1)
+            print "/dev/"$1
+        }'
+    ))  
+  fs=$(lsblk -pnro NAME,FSTYPE | awk -v dev="$devi" '$1 == dev {print $2}')
+  if [ -z "$fs" ]; then
+    echo "Not mounted or no filesystem found"
+  fi
+    gum confirm "Would you like to mount /dev/$devi to $fdlr?" || continue
+
+    mount "$devi" "$fdlr" || continue
+
+    gum confirm "Done with mounts?" && exit || continue
+done
 }
 tmux 
 tmux set-option status on

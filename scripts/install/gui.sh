@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
+tmux 
+tmux set-option status on
 
 if ! curl -fsS https://www.google.com/generate_204 >/dev/null then
 clear
-iw_footer
 iwctl
-
 fi
+
+timezone=$(curl http://ipapi.co/timezone || curl http://ip-api.com/line/?fields=timezone)
+if [ ! -z "$timezone" ] && [ "$timezone" ] 
 
 declare -A pkgs=(
     [tput]="ncurses"
@@ -15,7 +18,7 @@ declare -A pkgs=(
 for bin in "${!pkgs[@]}"; do
     if ! command -v "$bin" >/dev/null 2>&1; then
         echo "Installing package for $bin: ${pkgs[$bin]}"
-        sudo pacman -S --noconfirm "${pkgs[$bin]}"
+        pacman -S --noconfirm "${pkgs[$bin]}"
     fi
 done
 
@@ -46,11 +49,9 @@ while true; do
 
     mount "$devi" "$fdlr" || continue
     mountedevs=$(df -Th)
-    gum confirm "Done with mounts?\n$mountedevs\n are currently mounted" && exit || continue
+    gum confirm "Done with mounts? Currently mounted devices:\n$mountedevs\n" && exit || continue
 done
 }
-tmux 
-tmux set-option status on
 
 while true; do
     clear
@@ -64,6 +65,6 @@ while true; do
     fi
 
     if gum confirm "Do you want to edit /dev/$choice?"; then
-        sudo fdisk "/dev/$choice"
+        fdisk "/dev/$choice"
     fi
 done

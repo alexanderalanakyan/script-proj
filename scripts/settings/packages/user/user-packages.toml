@@ -44,6 +44,13 @@ packages = [
   "zoxide"
 ]
 
+[user.utils.extra]
+packages = [
+  "astroterm",
+  "navi",
+  "tealdeer"
+]
+
 [user.utils.system]
 packages = [
   "strace",
@@ -95,4 +102,4 @@ packages=["grim", "slurp"]
 
 
 [user.notes]
-packages=["yay"]
+packages=["yay", "howdoi"]

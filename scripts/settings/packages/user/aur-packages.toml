@@ -8,7 +8,7 @@ packages=["brother-hl2270dw"]
 packages=["journalctl-desktop-notification"]
 
 [user.aur.desktop.util.extra]
-packages=["neo"]
+packages=["neo", "pondidle-git"]
 
 [user.aur.apps]
 packages=["golazo"]

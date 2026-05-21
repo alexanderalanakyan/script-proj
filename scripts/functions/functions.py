@@ -1,4 +1,9 @@
-import configparser, subprocess, shutil, getpass, traceback, tomllib
+import configparser
+import subprocess
+import shutil 
+import getpass 
+import traceback 
+import tomllib
 config = configparser.ConfigParser()
 config.read("../settings/settings.ini")
 
@@ -8,7 +13,7 @@ def run(cmd):
     try:
         subprocess.run(cmd, check=True, text=True)
     except subprocess.CalledProcessError as e:
-        print(f"An error has occured! Please report this:\n{traceback.format_exc()}\n with settings:")
+        print(f"An error has occured! Please report this:")
         print("\n-Errors-\n")
         print(traceback.format_exc)
         print("\n-Stdout/err-\n")
@@ -37,7 +42,7 @@ def flathub(package_names):
     command = ["flatpak", "install", "--noninteractive", "-y",] + package_names
     run(command)
 def yay(package_names):
-    if shutil.which("yay").find("yay") == -1:
+    if shutil.which("yay"):
         if getpass.getuser() == "root":
             print("Please run as an actual user...")
             raise SystemError

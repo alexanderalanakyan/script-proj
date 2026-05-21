@@ -6,6 +6,7 @@ import getpass
 import os
 from pathlib import Path
 
+
 username = input("\n\x1b[38;5;166mInput your username!\x1b[0m\n")
 
 while not re.fullmatch("[a-z_][a-z0-9_-]*[$]?", username) or len(username) > 32:

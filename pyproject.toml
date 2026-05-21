@@ -1,7 +1,7 @@
 [project]
-name = "t"
-version = "0.1.0"
-description = "Add your description here"
+name = "installscripts"
+version = "0.0.1b"
+description = "install-scripts"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

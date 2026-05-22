@@ -1,6 +1,6 @@
 # notes.md
 
-> Use ./installdeps.sh to quickly install any and all dependencies while developing
+> Use ./installdeps.sh to quickly install any and all dependencies for developing
 ---
 > Anything with **#REFACTOR** will very likely be changed soon
 ---

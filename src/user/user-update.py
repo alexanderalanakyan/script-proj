@@ -51,6 +51,6 @@ try:
     #REFACTOR
     with open(config_file, "w") as cfg_file:
         write_file = tomllib.load(cfg_file)
-        
-
-
+except Exception as e:
+    #REFACTOR
+    raise SystemExit from e

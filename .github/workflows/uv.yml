@@ -1,3 +1,5 @@
+name: uv
+on: [push]
 jobs:
   uv:
     name: python

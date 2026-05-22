@@ -1,2 +1,3 @@
 # What more is there to say, a little project about shell scripts...
 [![code-review](https://github.com/alexanderalanakyan/script-proj/actions/workflows/code-review.yml/badge.svg?event=push)](https://github.com/alexanderalanakyan/script-proj/actions/workflows/code-review.yml)
+![GitHub License](https://img.shields.io/github/license/alexanderalanakyan/script-proj)

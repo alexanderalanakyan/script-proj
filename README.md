@@ -1,2 +1,2 @@
 # What more is there to say, a little project about shell scripts...
-[![uv](https://github.com/alexanderalanakyan/script-proj/actions/workflows/uv.yml/badge.svg?event=push)](https://github.com/alexanderalanakyan/script-proj/actions/workflows/uv.yml)
+[![code-review](https://github.com/alexanderalanakyan/script-proj/actions/workflows/uv.yml/badge.svg?event=push)](https://github.com/alexanderalanakyan/script-proj/actions/workflows/code-review.yml)

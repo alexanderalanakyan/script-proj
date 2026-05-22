@@ -1,13 +1,12 @@
 name: code-review
 on: [push]
 jobs:
-  uv:
+  lint:
     name: python
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v6
-
       - name: "Set up Python"
         uses: actions/setup-python@v6
         with:
@@ -24,7 +23,6 @@ jobs:
         run: uv run pyright 
       - name: Bandit
         run: uv run bandit -r $(git ls-files '*.py')
-      - name: Ruff Format
-        run: uv run ruff format $(git ls-files '*.py')
       - name: Ruff Check
         run: uv run ruff check $(git ls-files '*.py')
+  

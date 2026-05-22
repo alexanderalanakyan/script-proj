@@ -1,11 +1,11 @@
 [main]
 version="0.0.1b"
-user_done=false
-root_done=false
-install_done=false
+user_done="False"
+root_done="False"
+install_done="False"
 
 [dots]
-dotfiles_enabled=True
+dotfiles_enabled="True"
 dots_dir="../"
 
 [env]
@@ -24,4 +24,3 @@ services=[
     "xdg-user-dirs",
     "gcr-ssh-agent.socket"
         ]
-

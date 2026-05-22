@@ -1,9 +1,8 @@
 # TODO.md
-### Why are there so many lines here?
-#### Just why?
-##### This is getting a little out of hand.
+
 ---
-# Tasks: 
+
+## Tasks:
 
 - [ ] Refactor all .py files, and convert (most) .sh files to .py for readability
 - [ ] Add more checking in .py files so as to not mess up the users system 
@@ -17,8 +16,10 @@
 - [ ] Change *Helper Functions* module to have more useful functions 
 - [ ] Add in packages used in developing so as to not infringe on their licenses 
 - [ ] Fully use UI controls to enhance experience
+- [ ] Convert to BTRFS and add snapshots + Filesystem compression
+
 ---
-# Services, Packages, and more that are to be added:
+
+## Services, Packages, and more that are to be added:
 
 > [**kernal-modules-hook**](https://github.com/saber-nyan/kernel-modules-hook) along with  **linux-modules-cleanup.service**
-

@@ -9,7 +9,7 @@ from functions import functions as f
 
 config = configparser.ConfigParser()
 
-config.read("../settings/settings.ini")
+config.read(Path(__file__).resolve().parent / "settings" / "settings.ini")
 if config["main"]["userdone"] == "true":
     inp = input(
         "User already finished setup, if this is false, enter continue to continue"
@@ -64,7 +64,9 @@ f.run(
 )
 try:
     with open(
-        "../settings/settings.ini", "w", encoding=sys.getfilesystemencoding()
+        Path(__file__).resolve().parent / "settings" / "settings.ini",
+        "w",
+        encoding=sys.getfilesystemencoding(),
     ) as file:
         config["main"]["userdone"] = "true"
         config.write(file)

@@ -3,7 +3,7 @@ name = "installscripts"
 version = "0.0.1b"
 description = "install-scripts"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.13.13"
 dependencies = [
     "bandit>=1.9.4",
     "pylint>=4.0.5",

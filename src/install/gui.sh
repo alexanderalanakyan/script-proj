@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
-tmux 
-tmux set-option status on
 
-if ! curl -fsS https://www.google.com/generate_204 >/dev/null then
+if [ -z "$TMUX" ]; then
+tmux
+tmux set-option status on
+fi 
+
+
+if ! curl -fsS https://www.google.com/generate_204 >/dev/null; then
 clear
+tmux set status-left "COMMANDS: Display Wi-Fi stations: station list | Look for networks with a station: station <station> scan |  - Display the networks found by a station: station <station> get-networks | Connect to a network with a station: station <station> connect network_name"
 iwctl
 fi
 

@@ -1,4 +1,4 @@
-name: uv
+name: code-review
 on: [push]
 jobs:
   uv:

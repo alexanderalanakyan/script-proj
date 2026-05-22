@@ -1,2 +1,0 @@
-      - name: Ruff Format
-        run: uv run ruff format $(git ls-files '*.py')

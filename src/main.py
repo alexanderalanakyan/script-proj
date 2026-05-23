@@ -1,12 +1,9 @@
 from pathlib import Path
 import tomllib
-import traceback
 
 cfg_file = Path("./settings/test.toml").resolve()
 
-print(cfg_file)
 if not cfg_file.exists():
-    print(traceback.format_exc())
     raise SystemExit
 
 
@@ -30,4 +27,6 @@ def write_to_toml(section, key, value):
         lines.append("\n")
     with open(cfg_file, "w", encoding="utf-8") as f:
         f.writelines(lines)
-write_to_toml("test2", "jo", True)
+
+
+write_to_toml("test2", "jo", 102)

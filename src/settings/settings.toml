@@ -1,8 +1,8 @@
 [main]
 version="0.0.1b"
-user_done="False"
-root_done="False"
-install_done="False"
+user_done=false 
+root_done=false 
+install_done=false
 
 [dots]
 dotfiles_enabled="True"
@@ -13,7 +13,7 @@ ssh_auth_sock="/run/user/$(id -u)/gcr/ssh"
 anv_debug="video-decode,video-encode"
 
 [install]
-ssh=""
+ssh="test"
 
 [user]
 services=[

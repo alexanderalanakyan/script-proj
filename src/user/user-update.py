@@ -21,7 +21,7 @@ if main_cfg.get("install_done") != "False":
     #REFACTOR
     raise SystemExit
 
-if main_cfg.get("dotfiles_enabled") == "True" and user_home:
+if main_cfg.get("dotfiles_enabled") and user_home:
     if Path.exists(user_home / ".dotfiles"):
         #REFACTOR
         raise SystemExit
@@ -51,6 +51,8 @@ try:
     #REFACTOR
     with open(config_file, "w") as cfg_file:
         write_file = tomllib.load(cfg_file)
+        write_file["main"]["userdone"] = "True"
+        config.write(write_file)
 except Exception as e:
     #REFACTOR
     raise SystemExit from e

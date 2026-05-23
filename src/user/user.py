@@ -20,7 +20,7 @@ if main_cfg.get("install_done") != False:
 if dots_cfg.get("dotfiles_enabled"):
     if not user_home.exists():
         print("You do seemingly do not have a user home dir")
-            
+
 
 else:
     print("\n----Skipping dotfiles linking: no userhome/dotfiles not enabled----\n")

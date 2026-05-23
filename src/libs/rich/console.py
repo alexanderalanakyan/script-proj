@@ -2201,9 +2201,9 @@ class Console:
             str: String containing console contents.
 
         """
-        assert (
-            self.record
-        ), "To export console contents set record=True in the constructor or instance"
+        assert self.record, (
+            "To export console contents set record=True in the constructor or instance"
+        )
 
         with self._record_buffer_lock:
             if styles:
@@ -2265,9 +2265,9 @@ class Console:
         """
         from html import escape
 
-        assert (
-            self.record
-        ), "To export console contents set record=True in the constructor or instance"
+        assert self.record, (
+            "To export console contents set record=True in the constructor or instance"
+        )
         fragments: List[str] = []
         append = fragments.append
         _theme = theme or DEFAULT_TERMINAL_THEME

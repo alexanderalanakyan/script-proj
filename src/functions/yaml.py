@@ -2,6 +2,7 @@
 from pathlib import Path
 import tomllib
 from libs.yaml import load, dump
+
 try:
     from libs.yaml import CLoader as Loader, CDumper as Dumper
 except ImportError:
@@ -12,8 +13,8 @@ cfg_file = Path(__file__).parent().parent() / "settings" / "settings.yaml".resol
 
 def write(section, key, value=None, file_path=cfg_file):
     # Function for writing specific values to certain files
-    data=read(file_path=file_path)
-    
+    data = read(file_path=file_path)
+
     if section not in data:
         data[section] = {}
     elif not value:
@@ -22,6 +23,8 @@ def write(section, key, value=None, file_path=cfg_file):
         data[section][key] = value
     with open(file_path, "w") as write_file:
         dump(data, write_file)
+
+
 def read(file_path=cfg_file):
     # Function for reading certain files
     if not file_path.exists():

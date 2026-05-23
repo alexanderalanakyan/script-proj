@@ -34,3 +34,5 @@ tempCodeRunnerFile.py
 # Things that are needed... but should not be cached
 gum/*
 pyyaml/*
+rich/*
+!gum/LICENSE

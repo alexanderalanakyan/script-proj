@@ -8,7 +8,7 @@ try:
 except ImportError:
     from libs.yaml import Loader, Dumper
 
-cfg_file = Path(__file__).parent().parent() / "settings" / "settings.yaml".resolve()
+cfg_file = (Path(__file__).parent.parent / "settings" / "settings.yaml").resolve()
 
 
 def write(section, key, value=None, file_path=cfg_file):

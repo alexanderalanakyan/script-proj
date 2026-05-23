@@ -29,4 +29,4 @@ def write_to_toml(section, key, value):
         f.writelines(lines)
 
 
-write_to_toml("test2", "jo", 102)
+write_to_toml("ttt", "jo", 102)

@@ -25,7 +25,6 @@ If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
  - OS: 
- - Browser 
  - Version 
 
 **Output of console/journal**

@@ -1,6 +1,3 @@
-[submodule "src/modules/rich"]
-	path = src/modules/rich
-	url = https://github.com/Textualize/rich
 
 [submodule "src/modules/gum"]
 	path = src/modules/gum

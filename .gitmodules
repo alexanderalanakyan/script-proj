@@ -1,9 +1,7 @@
 [submodule "src/modules/rich"]
 	path = src/modules/rich
 	url = https://github.com/Textualize/rich
-[submodule "src/modules/pyyaml"]
-	path = src/modules/pyyaml
-	url = https://github.com/yaml/pyyaml
+
 [submodule "src/modules/gum"]
 	path = src/modules/gum
 	url = https://github.com/charmbracelet/gum

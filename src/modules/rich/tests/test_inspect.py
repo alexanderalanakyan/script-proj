@@ -449,9 +449,7 @@ def test_can_handle_special_characters_in_docstrings(
 │         Multiline docstring                    │
 │         with %s should be handled              │
 ╰────────────────────────────────────────────────╯
-""" % (
-        expected_replacement
-    )
+""" % (expected_replacement)
     assert render(Something, methods=True) == expected
 
 
@@ -480,10 +478,14 @@ def test_object_types_mro(obj: object, expected_result: Sequence[Type]):
         [str, ["builtins.str", "builtins.object"]],
         [Foo(1), [f"{__name__}.Foo", "builtins.object"]],
         [Foo, [f"{__name__}.Foo", "builtins.object"]],
-        [FooSubclass(1),
-         [f"{__name__}.FooSubclass", f"{__name__}.Foo", "builtins.object"]],
-        [FooSubclass,
-         [f"{__name__}.FooSubclass", f"{__name__}.Foo", "builtins.object"]],
+        [
+            FooSubclass(1),
+            [f"{__name__}.FooSubclass", f"{__name__}.Foo", "builtins.object"],
+        ],
+        [
+            FooSubclass,
+            [f"{__name__}.FooSubclass", f"{__name__}.Foo", "builtins.object"],
+        ],
         # fmt: on
     ),
 )

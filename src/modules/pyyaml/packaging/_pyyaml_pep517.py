@@ -12,7 +12,11 @@ def _bridge_build_meta():
     for attr_name in build_meta.__all__:
         attr_value = getattr(build_meta, attr_name)
         if callable(attr_value):
-            setattr(self_module, attr_name, functools.partial(_expose_config_settings, attr_value))
+            setattr(
+                self_module,
+                attr_name,
+                functools.partial(_expose_config_settings, attr_value),
+            )
 
 
 class ActiveConfigSettings:
@@ -39,7 +43,7 @@ def _expose_config_settings(real_method, *args, **kwargs):
     sig = inspect.signature(real_method)
     boundargs = sig.bind(*args, **kwargs)
 
-    config = boundargs.arguments.get('config_settings')
+    config = boundargs.arguments.get("config_settings")
 
     ctx = ActiveConfigSettings(config) if config else nullcontext()
 
@@ -48,4 +52,3 @@ def _expose_config_settings(real_method, *args, **kwargs):
 
 
 _bridge_build_meta()
-

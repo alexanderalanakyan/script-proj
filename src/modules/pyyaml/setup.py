@@ -1,6 +1,5 @@
-
-NAME = 'PyYAML'
-VERSION = '7.0.0.dev0'
+NAME = "PyYAML"
+VERSION = "7.0.0.dev0"
 DESCRIPTION = "YAML parser and emitter for Python"
 LONG_DESCRIPTION = """\
 YAML is a data serialization format designed for human readability
@@ -15,7 +14,7 @@ allow to represent an arbitrary Python object.
 PyYAML is applicable for a broad range of tasks from complex
 configuration files to object serialization and persistence."""
 AUTHOR = "Kirill Simonov"
-AUTHOR_EMAIL = 'xi@resolvent.net'
+AUTHOR_EMAIL = "xi@resolvent.net"
 LICENSE = "MIT"
 PLATFORMS = "Any"
 URL = "https://pyyaml.org/"
@@ -40,11 +39,11 @@ CLASSIFIERS = [
     "Topic :: Text Processing :: Markup",
 ]
 PROJECT_URLS = {
-   'Bug Tracker': 'https://github.com/yaml/pyyaml/issues',
-   'CI': 'https://github.com/yaml/pyyaml/actions',
-   'Documentation': 'https://pyyaml.org/wiki/PyYAMLDocumentation',
-   'Mailing lists': 'http://lists.sourceforge.net/lists/listinfo/yaml-core',
-   'Source Code': 'https://github.com/yaml/pyyaml',
+    "Bug Tracker": "https://github.com/yaml/pyyaml/issues",
+    "CI": "https://github.com/yaml/pyyaml/actions",
+    "Documentation": "https://pyyaml.org/wiki/PyYAMLDocumentation",
+    "Mailing lists": "http://lists.sourceforge.net/lists/listinfo/yaml-core",
+    "Source Code": "https://github.com/yaml/pyyaml",
 }
 
 LIBYAML_CHECK = """
@@ -68,20 +67,32 @@ int main(void) {
 import sys, os, os.path, pathlib, platform, shutil, tempfile, warnings
 
 # for newer setuptools, enable the embedded distutils before importing setuptools/distutils to avoid warnings
-os.environ['SETUPTOOLS_USE_DISTUTILS'] = 'local'
+os.environ["SETUPTOOLS_USE_DISTUTILS"] = "local"
 
-from setuptools import setup, Command, Distribution as _Distribution, Extension as _Extension
+from setuptools import (
+    setup,
+    Command,
+    Distribution as _Distribution,
+    Extension as _Extension,
+)
 from setuptools.command.build_ext import build_ext as _build_ext
+
 # NB: distutils imports must remain below setuptools to ensure we use the embedded version
 from distutils import log
-from distutils.errors import DistutilsError, CompileError, LinkError, DistutilsPlatformError
+from distutils.errors import (
+    DistutilsError,
+    CompileError,
+    LinkError,
+    DistutilsPlatformError,
+)
 
 with_cython = False
-if 'sdist' in sys.argv or os.environ.get('PYYAML_FORCE_CYTHON') == '1':
+if "sdist" in sys.argv or os.environ.get("PYYAML_FORCE_CYTHON") == "1":
     # we need cython here
     with_cython = True
 try:
     from Cython.Distutils.extension import Extension as _Extension
+
     try:
         # try old_build_ext from Cython > 3 first, until we can dump it entirely
         from Cython.Distutils.old_build_ext import old_build_ext as _build_ext
@@ -102,23 +113,25 @@ except ImportError:
 try:
     from _pyyaml_pep517 import ActiveConfigSettings
 except ImportError:
+
     class ActiveConfigSettings:
         @staticmethod
         def current():
             return {}
 
+
 # on Windows, disable wheel generation warning noise
 windows_ignore_warnings = [
-"Unknown distribution option: 'python_requires'",
-"Config variable 'Py_DEBUG' is unset",
-"Config variable 'WITH_PYMALLOC' is unset",
-"Config variable 'Py_UNICODE_SIZE' is unset",
-"Cython directive 'language_level' not set"
+    "Unknown distribution option: 'python_requires'",
+    "Config variable 'Py_DEBUG' is unset",
+    "Config variable 'WITH_PYMALLOC' is unset",
+    "Config variable 'Py_UNICODE_SIZE' is unset",
+    "Cython directive 'language_level' not set",
 ]
 
-if platform.system() == 'Windows':
+if platform.system() == "Windows":
     for w in windows_ignore_warnings:
-        warnings.filterwarnings('ignore', w)
+        warnings.filterwarnings("ignore", w)
 
 
 class Distribution(_Distribution):
@@ -126,17 +139,19 @@ class Distribution(_Distribution):
         _Distribution.__init__(self, attrs)
         if not self.ext_modules:
             return
-        for idx in range(len(self.ext_modules)-1, -1, -1):
+        for idx in range(len(self.ext_modules) - 1, -1, -1):
             ext = self.ext_modules[idx]
             if not isinstance(ext, Extension):
                 continue
             setattr(self, ext.attr_name, None)
             self.global_options = [
-                    (ext.option_name, None,
-                        "include %s (default if %s is available)"
-                        % (ext.feature_description, ext.feature_name)),
-                    (ext.neg_option_name, None,
-                        "exclude %s" % ext.feature_description),
+                (
+                    ext.option_name,
+                    None,
+                    "include %s (default if %s is available)"
+                    % (ext.feature_description, ext.feature_name),
+                ),
+                (ext.neg_option_name, None, "exclude %s" % ext.feature_description),
             ] + self.global_options
             self.negative_opt = self.negative_opt.copy()
             self.negative_opt[ext.neg_option_name] = ext.option_name
@@ -152,11 +167,13 @@ class Distribution(_Distribution):
 
     def ext_status(self, ext):
         implementation = platform.python_implementation()
-        if implementation not in ['CPython', 'PyPy']:
+        if implementation not in ["CPython", "PyPy"]:
             return False
         if isinstance(ext, Extension):
             # the "build by default" behavior is implemented by this returning None
-            with_ext = getattr(self, ext.attr_name) or os.environ.get('PYYAML_FORCE_{0}'.format(ext.feature_name.upper()))
+            with_ext = getattr(self, ext.attr_name) or os.environ.get(
+                "PYYAML_FORCE_{0}".format(ext.feature_name.upper())
+            )
             try:
                 with_ext = int(with_ext)  # attempt coerce envvar to int
             except TypeError:
@@ -167,22 +184,22 @@ class Distribution(_Distribution):
 
 
 class Extension(_Extension):
-
-    def __init__(self, name, sources, feature_name, feature_description,
-            feature_check, **kwds):
+    def __init__(
+        self, name, sources, feature_name, feature_description, feature_check, **kwds
+    ):
         if not with_cython:
             for filename in sources[:]:
                 base, ext = os.path.splitext(filename)
-                if ext == '.pyx':
+                if ext == ".pyx":
                     sources.remove(filename)
-                    sources.append('%s.c' % base)
+                    sources.append("%s.c" % base)
         _Extension.__init__(self, name, sources, **kwds)
         self.feature_name = feature_name
         self.feature_description = feature_description
         self.feature_check = feature_check
-        self.attr_name = 'with_' + feature_name.replace('-', '_')
-        self.option_name = 'with-' + feature_name
-        self.neg_option_name = 'without-' + feature_name
+        self.attr_name = "with_" + feature_name.replace("-", "_")
+        self.option_name = "with-" + feature_name
+        self.neg_option_name = "without-" + feature_name
 
 
 class build_ext(_build_ext):
@@ -190,10 +207,11 @@ class build_ext(_build_ext):
         super().finalize_options()
         pep517_config = ActiveConfigSettings.current()
 
-        build_config = pep517_config.get('pyyaml_build_config')
+        build_config = pep517_config.get("pyyaml_build_config")
 
         if build_config:
             import json
+
             build_config = json.loads(build_config)
             print(f"`pyyaml_build_config`: {build_config}")
         else:
@@ -244,8 +262,8 @@ class build_ext(_build_ext):
             for filename in ext.sources:
                 filenames.append(filename)
                 base = os.path.splitext(filename)[0]
-                for ext in ['c', 'h', 'pyx', 'pxd']:
-                    filename = '%s.%s' % (base, ext)
+                for ext in ["c", "h", "pyx", "pxd"]:
+                    filename = "%s.%s" % (base, ext)
                     if filename not in filenames and os.path.isfile(filename):
                         filenames.append(filename)
         return filenames
@@ -255,8 +273,7 @@ class build_ext(_build_ext):
         outputs = []
         for ext in self.extensions:
             fullname = self.get_ext_fullname(ext.name)
-            filename = os.path.join(self.build_lib,
-                                    self.get_ext_filename(fullname))
+            filename = os.path.join(self.build_lib, self.get_ext_filename(fullname))
             if os.path.isfile(filename):
                 outputs.append(filename)
         return outputs
@@ -268,7 +285,9 @@ class build_ext(_build_ext):
             if with_ext is not None and not with_ext:
                 continue
             if with_cython:
-                print(f"BUILDING CYTHON EXT; {self.include_dirs=} {self.library_dirs=} {self.define=}")
+                print(
+                    f"BUILDING CYTHON EXT; {self.include_dirs=} {self.library_dirs=} {self.define=}"
+                )
                 ext.sources = self.cython_sources(ext.sources, ext)
             try:
                 self.build_extension(ext)
@@ -279,7 +298,6 @@ class build_ext(_build_ext):
 
 
 class test(Command):
-
     user_options = []
 
     def initialize_options(self):
@@ -289,14 +307,17 @@ class test(Command):
         pass
 
     def run(self):
-        warnings.warn('Running tests via `setup.py test` is deprecated and will be removed in a future release. Use `pytest` instead to ensure that the complete test suite is run.', DeprecationWarning)
-        build_cmd = self.get_finalized_command('build')
+        warnings.warn(
+            "Running tests via `setup.py test` is deprecated and will be removed in a future release. Use `pytest` instead to ensure that the complete test suite is run.",
+            DeprecationWarning,
+        )
+        build_cmd = self.get_finalized_command("build")
         build_cmd.run()
 
         # running the tests this way can pollute the post-MANIFEST build sources
         # (see https://github.com/yaml/pyyaml/issues/527#issuecomment-921058344)
         # until we remove the test command, run tests from an ephemeral copy of the intermediate build sources
-        tempdir = tempfile.TemporaryDirectory(prefix='test_pyyaml')
+        tempdir = tempfile.TemporaryDirectory(prefix="test_pyyaml")
 
         try:
             warnings.warn(
@@ -305,12 +326,13 @@ class test(Command):
             )
 
             # have to create a subdir since we don't get dir_exists_ok on copytree until 3.8
-            temp_test_path = pathlib.Path(tempdir.name) / 'pyyaml'
+            temp_test_path = pathlib.Path(tempdir.name) / "pyyaml"
             shutil.copytree(build_cmd.build_lib, temp_test_path)
             sys.path.insert(0, str(temp_test_path))
-            sys.path.insert(0, 'tests/legacy_tests')
+            sys.path.insert(0, "tests/legacy_tests")
 
             import test_all
+
             if not test_all.main([]):
                 raise DistutilsError("Tests failed")
         finally:
@@ -322,15 +344,14 @@ class test(Command):
 
 
 cmdclass = {
-    'build_ext': build_ext,
-    'test': test,
+    "build_ext": build_ext,
+    "test": test,
 }
 if bdist_wheel:
-    cmdclass['bdist_wheel'] = bdist_wheel
+    cmdclass["bdist_wheel"] = bdist_wheel
 
 
-if __name__ == '__main__':
-
+if __name__ == "__main__":
     setup(
         name=NAME,
         version=VERSION,
@@ -344,16 +365,19 @@ if __name__ == '__main__':
         download_url=DOWNLOAD_URL,
         classifiers=CLASSIFIERS,
         project_urls=PROJECT_URLS,
-
-        package_dir={'': 'lib'},
-        packages=['yaml', '_yaml'],
+        package_dir={"": "lib"},
+        packages=["yaml", "_yaml"],
         ext_modules=[
-            Extension('yaml._yaml', ['yaml/_yaml.pyx'],
-                'libyaml', "LibYAML bindings", LIBYAML_CHECK,
-                libraries=['yaml']),
+            Extension(
+                "yaml._yaml",
+                ["yaml/_yaml.pyx"],
+                "libyaml",
+                "LibYAML bindings",
+                LIBYAML_CHECK,
+                libraries=["yaml"],
+            ),
         ],
-
         distclass=Distribution,
         cmdclass=cmdclass,
-        python_requires='>=3.8',
+        python_requires=">=3.8",
     )

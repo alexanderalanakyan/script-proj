@@ -1,8 +1,8 @@
-
 import yaml, canonical
 
+
 def test_canonical_scanner(canonical_filename, verbose=False):
-    with open(canonical_filename, 'rb') as file:
+    with open(canonical_filename, "rb") as file:
         data = file.read()
     tokens = list(yaml.canonical_scan(data))
     assert tokens, tokens
@@ -10,10 +10,12 @@ def test_canonical_scanner(canonical_filename, verbose=False):
         for token in tokens:
             print(token)
 
-test_canonical_scanner.unittest = ['.canonical']
+
+test_canonical_scanner.unittest = [".canonical"]
+
 
 def test_canonical_parser(canonical_filename, verbose=False):
-    with open(canonical_filename, 'rb') as file:
+    with open(canonical_filename, "rb") as file:
         data = file.read()
     events = list(yaml.canonical_parse(data))
     assert events, events
@@ -21,10 +23,12 @@ def test_canonical_parser(canonical_filename, verbose=False):
         for event in events:
             print(event)
 
-test_canonical_parser.unittest = ['.canonical']
+
+test_canonical_parser.unittest = [".canonical"]
+
 
 def test_canonical_error(data_filename, canonical_filename, verbose=False):
-    with open(data_filename, 'rb') as file:
+    with open(data_filename, "rb") as file:
         data = file.read()
     try:
         output = list(yaml.canonical_load_all(data))
@@ -34,10 +38,11 @@ def test_canonical_error(data_filename, canonical_filename, verbose=False):
     else:
         raise AssertionError("expected an exception")
 
-test_canonical_error.unittest = ['.data', '.canonical']
-test_canonical_error.skip = ['.empty']
 
-if __name__ == '__main__':
+test_canonical_error.unittest = [".data", ".canonical"]
+test_canonical_error.skip = [".empty"]
+
+if __name__ == "__main__":
     import test_appliance
-    test_appliance.run(globals())
 
+    test_appliance.run(globals())

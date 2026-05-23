@@ -44,13 +44,18 @@ if sys.platform == "win32":
             cursor_info.dwSize = CURSOR_SIZE
             cursor_info.bVisible = True
 
-        with mock.patch.object(
-            _win32_console,
-            "GetConsoleScreenBufferInfo",
-            return_value=StubScreenBufferInfo,
-        ) as GetConsoleScreenBufferInfo, mock.patch.object(
-            _win32_console, "GetConsoleCursorInfo", side_effect=stub_console_cursor_info
-        ) as GetConsoleCursorInfo:
+        with (
+            mock.patch.object(
+                _win32_console,
+                "GetConsoleScreenBufferInfo",
+                return_value=StubScreenBufferInfo,
+            ) as GetConsoleScreenBufferInfo,
+            mock.patch.object(
+                _win32_console,
+                "GetConsoleCursorInfo",
+                side_effect=stub_console_cursor_info,
+            ) as GetConsoleCursorInfo,
+        ):
             yield {
                 "GetConsoleScreenBufferInfo": GetConsoleScreenBufferInfo,
                 "GetConsoleCursorInfo": GetConsoleCursorInfo,

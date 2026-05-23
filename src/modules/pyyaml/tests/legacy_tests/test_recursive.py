@@ -1,32 +1,31 @@
-
 import yaml
 
-class AnInstance:
 
+class AnInstance:
     def __init__(self, foo, bar):
         self.foo = foo
         self.bar = bar
 
     def __repr__(self):
         try:
-            return "%s(foo=%r, bar=%r)" % (self.__class__.__name__,
-                    self.foo, self.bar)
+            return "%s(foo=%r, bar=%r)" % (self.__class__.__name__, self.foo, self.bar)
         except RuntimeError:
             return "%s(foo=..., bar=...)" % self.__class__.__name__
 
-class AnInstanceWithState(AnInstance):
 
+class AnInstanceWithState(AnInstance):
     def __getstate__(self):
-        return {'attributes': [self.foo, self.bar]}
+        return {"attributes": [self.foo, self.bar]}
 
     def __setstate__(self, state):
-        self.foo, self.bar = state['attributes']
+        self.foo, self.bar = state["attributes"]
+
 
 def test_recursive(recursive_filename, verbose=False):
     context = globals().copy()
-    with open(recursive_filename, 'rb') as file:
+    with open(recursive_filename, "rb") as file:
         exec(file.read(), context)
-    value1 = context['value']
+    value1 = context["value"]
     output1 = None
     value2 = None
     output2 = None
@@ -44,9 +43,10 @@ def test_recursive(recursive_filename, verbose=False):
             print("OUTPUT2:")
             print(output2)
 
-test_recursive.unittest = ['.recursive']
 
-if __name__ == '__main__':
+test_recursive.unittest = [".recursive"]
+
+if __name__ == "__main__":
     import test_appliance
-    test_appliance.run(globals())
 
+    test_appliance.run(globals())

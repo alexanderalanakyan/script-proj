@@ -15,7 +15,7 @@ from test_multi_constructor import *
 
 from test_schema import *
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import test_appliance
-    test_appliance.run(globals())
 
+    test_appliance.run(globals())

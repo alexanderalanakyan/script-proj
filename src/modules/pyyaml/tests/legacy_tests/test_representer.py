@@ -1,18 +1,22 @@
-
 import yaml
 import test_constructor
 import pprint
 
+
 def test_representer_types(code_filename, verbose=False):
     test_constructor._make_objects()
     for allow_unicode in [False, True]:
-        for encoding in ['utf-8', 'utf-16-be', 'utf-16-le']:
-            with open(code_filename, 'rb') as file:
+        for encoding in ["utf-8", "utf-16-be", "utf-16-le"]:
+            with open(code_filename, "rb") as file:
                 native1 = test_constructor._load_code(file.read())
             native2 = None
             try:
-                output = yaml.dump(native1, Dumper=test_constructor.MyDumper,
-                            allow_unicode=allow_unicode, encoding=encoding)
+                output = yaml.dump(
+                    native1,
+                    Dumper=test_constructor.MyDumper,
+                    allow_unicode=allow_unicode,
+                    encoding=encoding,
+                )
                 native2 = yaml.load(output, Loader=test_constructor.MyLoader)
                 try:
                     if native1 == native2:
@@ -36,9 +40,10 @@ def test_representer_types(code_filename, verbose=False):
                     print("OUTPUT:")
                     print(output)
 
-test_representer_types.unittest = ['.code']
 
-if __name__ == '__main__':
+test_representer_types.unittest = [".code"]
+
+if __name__ == "__main__":
     import test_appliance
-    test_appliance.run(globals())
 
+    test_appliance.run(globals())

@@ -1,4 +1,3 @@
-
 import yaml
 import pprint
 
@@ -22,59 +21,63 @@ import pprint
 # value:                :
 
 _replaces = {
-    yaml.DirectiveToken: '%',
-    yaml.DocumentStartToken: '---',
-    yaml.DocumentEndToken: '...',
-    yaml.AliasToken: '*',
-    yaml.AnchorToken: '&',
-    yaml.TagToken: '!',
-    yaml.ScalarToken: '_',
-    yaml.BlockSequenceStartToken: '[[',
-    yaml.BlockMappingStartToken: '{{',
-    yaml.BlockEndToken: ']}',
-    yaml.FlowSequenceStartToken: '[',
-    yaml.FlowSequenceEndToken: ']',
-    yaml.FlowMappingStartToken: '{',
-    yaml.FlowMappingEndToken: '}',
-    yaml.BlockEntryToken: ',',
-    yaml.FlowEntryToken: ',',
-    yaml.KeyToken: '?',
-    yaml.ValueToken: ':',
+    yaml.DirectiveToken: "%",
+    yaml.DocumentStartToken: "---",
+    yaml.DocumentEndToken: "...",
+    yaml.AliasToken: "*",
+    yaml.AnchorToken: "&",
+    yaml.TagToken: "!",
+    yaml.ScalarToken: "_",
+    yaml.BlockSequenceStartToken: "[[",
+    yaml.BlockMappingStartToken: "{{",
+    yaml.BlockEndToken: "]}",
+    yaml.FlowSequenceStartToken: "[",
+    yaml.FlowSequenceEndToken: "]",
+    yaml.FlowMappingStartToken: "{",
+    yaml.FlowMappingEndToken: "}",
+    yaml.BlockEntryToken: ",",
+    yaml.FlowEntryToken: ",",
+    yaml.KeyToken: "?",
+    yaml.ValueToken: ":",
 }
+
 
 def test_tokens(data_filename, tokens_filename, verbose=False):
     tokens1 = []
-    with open(tokens_filename, 'r') as file:
+    with open(tokens_filename, "r") as file:
         tokens2 = file.read().split()
     try:
-        with open(data_filename, 'rb') as file:
+        with open(data_filename, "rb") as file:
             for token in yaml.scan(file):
                 if not isinstance(token, (yaml.StreamStartToken, yaml.StreamEndToken)):
                     tokens1.append(_replaces[token.__class__])
     finally:
         if verbose:
-            print("TOKENS1:", ' '.join(tokens1))
-            print("TOKENS2:", ' '.join(tokens2))
+            print("TOKENS1:", " ".join(tokens1))
+            print("TOKENS2:", " ".join(tokens2))
     assert len(tokens1) == len(tokens2), (tokens1, tokens2)
     for token1, token2 in zip(tokens1, tokens2):
         assert token1 == token2, (token1, token2)
 
-test_tokens.unittest = ['.data', '.tokens']
+
+test_tokens.unittest = [".data", ".tokens"]
+
 
 def test_scanner(data_filename, canonical_filename, verbose=False):
     for filename in [data_filename, canonical_filename]:
         tokens = []
         try:
-            with open(filename, 'rb') as file:
+            with open(filename, "rb") as file:
                 for token in yaml.scan(file):
                     tokens.append(token.__class__.__name__)
         finally:
             if verbose:
                 pprint.pprint(tokens)
 
-test_scanner.unittest = ['.data', '.canonical']
 
-if __name__ == '__main__':
+test_scanner.unittest = [".data", ".canonical"]
+
+if __name__ == "__main__":
     import test_appliance
-    test_appliance.run(globals())
 
+    test_appliance.run(globals())

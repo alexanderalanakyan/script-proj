@@ -1,18 +1,18 @@
-
 import yaml, yaml.composer, yaml.constructor, yaml.resolver
+
 
 class CanonicalError(yaml.YAMLError):
     pass
 
-class CanonicalScanner:
 
+class CanonicalScanner:
     def __init__(self, data):
         if isinstance(data, bytes):
             try:
-                data = data.decode('utf-8')
+                data = data.decode("utf-8")
             except UnicodeDecodeError:
                 raise CanonicalError("utf-8 stream is expected")
-        self.data = data+'\0'
+        self.data = data + "\0"
         self.index = 0
         self.tokens = []
         self.scanned = False
@@ -39,7 +39,7 @@ class CanonicalScanner:
             self.scan()
         token = self.tokens.pop(0)
         if choice and not isinstance(token, choice):
-            raise CanonicalError("unexpected token "+repr(token))
+            raise CanonicalError("unexpected token " + repr(token))
         return token
 
     def get_token_value(self):
@@ -51,38 +51,38 @@ class CanonicalScanner:
         while True:
             self.find_token()
             ch = self.data[self.index]
-            if ch == '\0':
+            if ch == "\0":
                 self.tokens.append(yaml.StreamEndToken(None, None))
                 break
-            elif ch == '%':
+            elif ch == "%":
                 self.tokens.append(self.scan_directive())
-            elif ch == '-' and self.data[self.index:self.index+3] == '---':
+            elif ch == "-" and self.data[self.index : self.index + 3] == "---":
                 self.index += 3
                 self.tokens.append(yaml.DocumentStartToken(None, None))
-            elif ch == '[':
+            elif ch == "[":
                 self.index += 1
                 self.tokens.append(yaml.FlowSequenceStartToken(None, None))
-            elif ch == '{':
+            elif ch == "{":
                 self.index += 1
                 self.tokens.append(yaml.FlowMappingStartToken(None, None))
-            elif ch == ']':
+            elif ch == "]":
                 self.index += 1
                 self.tokens.append(yaml.FlowSequenceEndToken(None, None))
-            elif ch == '}':
+            elif ch == "}":
                 self.index += 1
                 self.tokens.append(yaml.FlowMappingEndToken(None, None))
-            elif ch == '?':
+            elif ch == "?":
                 self.index += 1
                 self.tokens.append(yaml.KeyToken(None, None))
-            elif ch == ':':
+            elif ch == ":":
                 self.index += 1
                 self.tokens.append(yaml.ValueToken(None, None))
-            elif ch == ',':
+            elif ch == ",":
                 self.index += 1
                 self.tokens.append(yaml.FlowEntryToken(None, None))
-            elif ch == '*' or ch == '&':
+            elif ch == "*" or ch == "&":
                 self.tokens.append(self.scan_alias())
-            elif ch == '!':
+            elif ch == "!":
                 self.tokens.append(self.scan_tag())
             elif ch == '"':
                 self.tokens.append(self.scan_scalar())
@@ -90,67 +90,69 @@ class CanonicalScanner:
                 raise CanonicalError("invalid token")
         self.scanned = True
 
-    DIRECTIVE = '%YAML 1.1'
+    DIRECTIVE = "%YAML 1.1"
 
     def scan_directive(self):
-        if self.data[self.index:self.index+len(self.DIRECTIVE)] == self.DIRECTIVE and \
-                self.data[self.index+len(self.DIRECTIVE)] in ' \n\0':
+        if (
+            self.data[self.index : self.index + len(self.DIRECTIVE)] == self.DIRECTIVE
+            and self.data[self.index + len(self.DIRECTIVE)] in " \n\0"
+        ):
             self.index += len(self.DIRECTIVE)
-            return yaml.DirectiveToken('YAML', (1, 1), None, None)
+            return yaml.DirectiveToken("YAML", (1, 1), None, None)
         else:
             raise CanonicalError("invalid directive")
 
     def scan_alias(self):
-        if self.data[self.index] == '*':
+        if self.data[self.index] == "*":
             TokenClass = yaml.AliasToken
         else:
             TokenClass = yaml.AnchorToken
         self.index += 1
         start = self.index
-        while self.data[self.index] not in ', \n\0':
+        while self.data[self.index] not in ", \n\0":
             self.index += 1
-        value = self.data[start:self.index]
+        value = self.data[start : self.index]
         return TokenClass(value, None, None)
 
     def scan_tag(self):
         self.index += 1
         start = self.index
-        while self.data[self.index] not in ' \n\0':
+        while self.data[self.index] not in " \n\0":
             self.index += 1
-        value = self.data[start:self.index]
+        value = self.data[start : self.index]
         if not value:
-            value = '!'
-        elif value[0] == '!':
-            value = 'tag:yaml.org,2002:'+value[1:]
-        elif value[0] == '<' and value[-1] == '>':
+            value = "!"
+        elif value[0] == "!":
+            value = "tag:yaml.org,2002:" + value[1:]
+        elif value[0] == "<" and value[-1] == ">":
             value = value[1:-1]
         else:
-            value = '!'+value
+            value = "!" + value
         return yaml.TagToken(value, None, None)
 
     QUOTE_CODES = {
-        'x': 2,
-        'u': 4,
-        'U': 8,
+        "x": 2,
+        "u": 4,
+        "U": 8,
     }
 
     QUOTE_REPLACES = {
-        '\\': '\\',
-        '\"': '\"',
-        ' ': ' ',
-        'a': '\x07',
-        'b': '\x08',
-        'e': '\x1B',
-        'f': '\x0C',
-        'n': '\x0A',
-        'r': '\x0D',
-        't': '\x09',
-        'v': '\x0B',
-        'N': '\u0085',
-        'L': '\u2028',
-        'P': '\u2029',
-        '_': '_',
-        '0': '\x00',
+        "\\": "\\",
+        '"': '"',
+        " ": " ",
+        "a": "\x07",
+        "b": "\x08",
+        "e": "\x1b",
+        "f": "\x0c",
+        "n": "\x0a",
+        "r": "\x0d",
+        "t": "\x09",
+        "v": "\x0b",
+        "N": "\u0085",
+        "L": "\u2028",
+        "P": "\u2029",
+        "_": "_",
+        "0": "\x00",
     }
 
     def scan_scalar(self):
@@ -159,17 +161,17 @@ class CanonicalScanner:
         start = self.index
         ignore_spaces = False
         while self.data[self.index] != '"':
-            if self.data[self.index] == '\\':
+            if self.data[self.index] == "\\":
                 ignore_spaces = False
-                chunks.append(self.data[start:self.index])
+                chunks.append(self.data[start : self.index])
                 self.index += 1
                 ch = self.data[self.index]
                 self.index += 1
-                if ch == '\n':
+                if ch == "\n":
                     ignore_spaces = True
                 elif ch in self.QUOTE_CODES:
                     length = self.QUOTE_CODES[ch]
-                    code = int(self.data[self.index:self.index+length], 16)
+                    code = int(self.data[self.index : self.index + length], 16)
                     chunks.append(chr(code))
                     self.index += length
                 else:
@@ -177,37 +179,37 @@ class CanonicalScanner:
                         raise CanonicalError("invalid escape code")
                     chunks.append(self.QUOTE_REPLACES[ch])
                 start = self.index
-            elif self.data[self.index] == '\n':
-                chunks.append(self.data[start:self.index])
-                chunks.append(' ')
+            elif self.data[self.index] == "\n":
+                chunks.append(self.data[start : self.index])
+                chunks.append(" ")
                 self.index += 1
                 start = self.index
                 ignore_spaces = True
-            elif ignore_spaces and self.data[self.index] == ' ':
+            elif ignore_spaces and self.data[self.index] == " ":
                 self.index += 1
                 start = self.index
             else:
                 ignore_spaces = False
                 self.index += 1
-        chunks.append(self.data[start:self.index])
+        chunks.append(self.data[start : self.index])
         self.index += 1
-        return yaml.ScalarToken(''.join(chunks), False, None, None)
+        return yaml.ScalarToken("".join(chunks), False, None, None)
 
     def find_token(self):
         found = False
         while not found:
-            while self.data[self.index] in ' \t':
+            while self.data[self.index] in " \t":
                 self.index += 1
-            if self.data[self.index] == '#':
-                while self.data[self.index] != '\n':
+            if self.data[self.index] == "#":
+                while self.data[self.index] != "\n":
                     self.index += 1
-            if self.data[self.index] == '\n':
+            if self.data[self.index] == "\n":
                 self.index += 1
             else:
                 found = True
 
-class CanonicalParser:
 
+class CanonicalParser:
     def __init__(self):
         self.events = []
         self.parsed = False
@@ -223,7 +225,9 @@ class CanonicalParser:
             if self.check_token(yaml.DirectiveToken, yaml.DocumentStartToken):
                 self.parse_document()
             else:
-                raise CanonicalError("document is expected, got "+repr(self.tokens[0]))
+                raise CanonicalError(
+                    "document is expected, got " + repr(self.tokens[0])
+                )
         self.get_token(yaml.StreamEndToken)
         self.events.append(yaml.StreamEndEvent(None, None))
 
@@ -249,7 +253,11 @@ class CanonicalParser:
             if self.check_token(yaml.TagToken):
                 tag = self.get_token_value()
             if self.check_token(yaml.ScalarToken):
-                self.events.append(yaml.ScalarEvent(anchor, tag, (False, False), self.get_token_value(), None, None))
+                self.events.append(
+                    yaml.ScalarEvent(
+                        anchor, tag, (False, False), self.get_token_value(), None, None
+                    )
+                )
             elif self.check_token(yaml.FlowSequenceStartToken):
                 self.events.append(yaml.SequenceStartEvent(anchor, tag, None, None))
                 self.parse_sequence()
@@ -257,7 +265,9 @@ class CanonicalParser:
                 self.events.append(yaml.MappingStartEvent(anchor, tag, None, None))
                 self.parse_mapping()
             else:
-                raise CanonicalError("SCALAR, '[', or '{' is expected, got "+repr(self.tokens[0]))
+                raise CanonicalError(
+                    "SCALAR, '[', or '{' is expected, got " + repr(self.tokens[0])
+                )
 
     # sequence: SEQUENCE-START (node (ENTRY node)*)? ENTRY? SEQUENCE-END
     def parse_sequence(self):
@@ -315,11 +325,16 @@ class CanonicalParser:
             self.parse()
         return self.events[0]
 
-class CanonicalLoader(CanonicalScanner, CanonicalParser,
-        yaml.composer.Composer, yaml.constructor.Constructor, yaml.resolver.Resolver):
 
+class CanonicalLoader(
+    CanonicalScanner,
+    CanonicalParser,
+    yaml.composer.Composer,
+    yaml.constructor.Constructor,
+    yaml.resolver.Resolver,
+):
     def __init__(self, stream):
-        if hasattr(stream, 'read'):
+        if hasattr(stream, "read"):
             stream = stream.read()
         CanonicalScanner.__init__(self, stream)
         CanonicalParser.__init__(self)
@@ -327,35 +342,47 @@ class CanonicalLoader(CanonicalScanner, CanonicalParser,
         yaml.constructor.Constructor.__init__(self)
         yaml.resolver.Resolver.__init__(self)
 
+
 yaml.CanonicalLoader = CanonicalLoader
+
 
 def canonical_scan(stream):
     return yaml.scan(stream, Loader=CanonicalLoader)
 
+
 yaml.canonical_scan = canonical_scan
+
 
 def canonical_parse(stream):
     return yaml.parse(stream, Loader=CanonicalLoader)
 
+
 yaml.canonical_parse = canonical_parse
+
 
 def canonical_compose(stream):
     return yaml.compose(stream, Loader=CanonicalLoader)
 
+
 yaml.canonical_compose = canonical_compose
+
 
 def canonical_compose_all(stream):
     return yaml.compose_all(stream, Loader=CanonicalLoader)
 
+
 yaml.canonical_compose_all = canonical_compose_all
+
 
 def canonical_load(stream):
     return yaml.load(stream, Loader=CanonicalLoader)
 
+
 yaml.canonical_load = canonical_load
+
 
 def canonical_load_all(stream):
     return yaml.load_all(stream, Loader=CanonicalLoader)
 
-yaml.canonical_load_all = canonical_load_all
 
+yaml.canonical_load_all = canonical_load_all

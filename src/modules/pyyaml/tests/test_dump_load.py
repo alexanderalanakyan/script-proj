@@ -3,7 +3,7 @@ import yaml
 
 
 def test_dump():
-    assert yaml.dump(['foo'])
+    assert yaml.dump(["foo"])
 
 
 def test_load_no_loader():

@@ -1,15 +1,15 @@
-
 import yaml
 
+
 def test_marks(marks_filename, verbose=False):
-    with open(marks_filename, 'r') as file:
-        inputs = file.read().split('---\n')[1:]
+    with open(marks_filename, "r") as file:
+        inputs = file.read().split("---\n")[1:]
     for input in inputs:
         index = 0
         line = 0
         column = 0
-        while input[index] != '*':
-            if input[index] == '\n':
+        while input[index] != "*":
+            if input[index] == "\n":
                 line += 1
                 column = 0
             else:
@@ -20,14 +20,15 @@ def test_marks(marks_filename, verbose=False):
         if verbose:
             print(snippet)
         assert isinstance(snippet, str), type(snippet)
-        assert snippet.count('\n') == 1, snippet.count('\n')
-        data, pointer = snippet.split('\n')
+        assert snippet.count("\n") == 1, snippet.count("\n")
+        data, pointer = snippet.split("\n")
         assert len(data) < 82, len(data)
-        assert data[len(pointer)-1] == '*', data[len(pointer)-1]
+        assert data[len(pointer) - 1] == "*", data[len(pointer) - 1]
 
-test_marks.unittest = ['.marks']
 
-if __name__ == '__main__':
+test_marks.unittest = [".marks"]
+
+if __name__ == "__main__":
     import test_appliance
-    test_appliance.run(globals())
 
+    test_appliance.run(globals())

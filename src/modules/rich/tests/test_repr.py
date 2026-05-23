@@ -17,7 +17,10 @@ class Foo:
 
     def __rich_repr__(self):
         yield self.foo
-        yield None, self.foo,
+        yield (
+            None,
+            self.foo,
+        )
         yield "bar", self.bar, None
         yield "egg", self.egg
 
@@ -50,7 +53,10 @@ class AngularEgg:
 class Bar(Foo):
     def __rich_repr__(self):
         yield (self.foo,)
-        yield None, self.foo,
+        yield (
+            None,
+            self.foo,
+        )
         yield "bar", self.bar, None
         yield "egg", self.egg
 

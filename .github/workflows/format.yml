@@ -17,7 +17,7 @@ jobs:
           enable-cache: true 
       - name: Install the project
         run: uv sync --locked --all-extras --dev
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           ref: ${{ github.head_ref }}
           # Value already defaults to true, but `persist-credentials` is required to push new commits to the repository.

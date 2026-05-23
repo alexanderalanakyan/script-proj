@@ -20,7 +20,7 @@ jobs:
       - name: Remove bin
         run: rm ./src/bin/gum
       - name: Build bin
-        run: go build -o ./src/bin/gum ./src/modules/gum/
+        run: cd ./src/modules/gum && go build -o ../../src/bin/gum
       - name: Add+Commit+Push changes
         run: git add ./src/bin/gum && git commit -m "Building required bins" && git push
 

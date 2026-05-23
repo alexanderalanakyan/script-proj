@@ -31,6 +31,4 @@ tempCodeRunnerFile.py
 # Ruff stuff:
 .ruff_cache/
 
-# Things that are needed... but should not be cached
-gum/*
-!gum/LICENSE
+!src/libs/*

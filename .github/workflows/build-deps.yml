@@ -1,0 +1,23 @@
+name: build deps
+on: [push]
+jobs:
+  format:
+    name: go
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v4
+      - name: Get Submodules
+        run: git submodule update --init --recursive
+      - name: Setup Go 1.21.x
+        uses: actions/setup-go@v5
+        with:
+          # Semantic version range syntax or exact version of Go
+          go-version: '1.25.x'
+      - name: Build bin
+        run: go build -o ./src/bin/gum ./src/modules/gum/
+      - name: Add+Commit+Push changes
+        run: git add ./src/bin/gum && git commit -m "Building bin" && git push
+
+    

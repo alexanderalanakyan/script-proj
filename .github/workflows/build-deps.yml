@@ -6,11 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - name: Checkout main repo
-        uses: actions/checkout@v4
-      - name: Get Submodules
-        run: git submodule update --init --recursive
-      - name: Setup Go 1.21.x
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
+          # Value already defaults to true, but `persist-credentials` is required to push new commits to the repository.
+          persist-credentials: true
+          submodules: true
+      - name: Setup Go 1.25.x
         uses: actions/setup-go@v5
         with:
           # Semantic version range syntax or exact version of Go
@@ -20,6 +22,7 @@ jobs:
       - name: Build bin
         run: go build -o ./src/bin/gum ./src/modules/gum/
       - name: Add+Commit+Push changes
-        run: git add ./src/bin/gum && git commit -m "Building bin" && git push
+        run: git add ./src/bin/gum && git commit -m "Building required bins" && git push
+
 
     

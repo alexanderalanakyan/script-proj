@@ -4,3 +4,6 @@
 [submodule "rich"]
 	path = rich
 	url = https://github.com/Textualize/rich
+[submodule "pyyaml"]
+	path = pyyaml
+	url = https://github.com/yaml/pyyaml

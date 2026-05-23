@@ -1,0 +1,6 @@
+[submodule "src/pyyaml"]
+	path = src/pyyaml
+	url = https://github.com/yaml/pyyaml
+[submodule "src/gum"]
+	path = src/gum
+	url = https://github.com/charmbracelet/gum

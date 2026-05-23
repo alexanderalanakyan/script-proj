@@ -30,3 +30,8 @@ tempCodeRunnerFile.py
 
 # Ruff stuff:
 .ruff_cache/
+
+# Modules DO NOT want to put all of those files in
+gum_*/*
+gum_*.tar.gz
+pyyaml/*

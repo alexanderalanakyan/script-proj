@@ -11,7 +11,7 @@ dependencies = [
     "pyright>=1.1.409",
     "ruff>=0.15.14",
 ]
-license = "AGPL-3.0-only" 
+license = "MIT" 
 license-files = ["LICENSE"]
 
 [tool.pyrefly]

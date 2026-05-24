@@ -8,3 +8,6 @@
 [submodule "src/modules/rich"]
 	path = src/modules/rich
 	url = https://github.com/Textualize/rich
+[submodule "src/modules/pygments"]
+	path = src/modules/pygments
+	url = https://github.com/pygments/pygments/

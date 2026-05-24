@@ -19,10 +19,8 @@ jobs:
           go-version: '1.25.x'
       - name: Remove bin
         run: rm ./src/bin/gum || echo "gum not built yet"
-      - name: Build bin
-        run: cd ./src/modules/gum && go build -o ../bin/gum
-      - name: Copy LICENSE
-        run: cp ./LICENSE ../bin/LICENSE
+      - name: Build bin and copy LICENSE
+        run: cd ./src/modules/gum && go build -o ../bin/gum && cp ./LICENSE ../bin/LICENSE
       - name: Git Auto Commit
         uses: stefanzweifel/git-auto-commit-action@v7.1.0
 

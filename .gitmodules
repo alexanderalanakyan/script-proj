@@ -1,3 +1,6 @@
 [submodule "src/modules/gum"]
 	path = src/modules/gum
 	url = https://github.com/charmbracelet/gum
+[submodule "src/modules/impala"]
+	path = src/modules/impala
+	url = https://github.com/pythops/impala

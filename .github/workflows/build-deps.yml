@@ -38,3 +38,4 @@ jobs:
           branch: bins
           file_pattern: ./src/bin/*
           push_options: --force
+          

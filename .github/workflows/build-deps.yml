@@ -1,5 +1,5 @@
 name: build deps
-on: [workflow_call]
+on: [push]
 jobs:
   format:
     name: go
@@ -20,9 +20,11 @@ jobs:
       - name: Remove bin
         run: rm ./src/bin/gum
       - name: Build bin
-        run: cd ./src/modules/gum && go build -o ../../src/bin/gum
+        run: cd ./src/modules/gum && go build -o ../bin/gum
+      - name: Copy LICENSE
+        run: cp ./LICENSE ../bin/
       - name: Add+Commit+Push changes
-        run: git add ./src/bin/gum && git commit -m "Building required bins" && git push
+        run: git add . && git commit -m "Building required bins" && git push
 
 
     

@@ -1,6 +1,5 @@
 # Helper functions for YAML style config
 from pathlib import Path
-import tomllib
 from libs.yaml import load, dump
 from functions import error_handler as error
 
@@ -29,10 +28,10 @@ def write(section, key, value=None, file_path=cfg_file):
         error.exception_exit(e)
 
 
-def read(file_path=cfg_file):
+def rread(file_path=cfg_file):
     # Function for reading certain files
     if not file_path.exists():
-        raise FileNotFoundError("File not found")
+        error.exception_exit(FileNotFoundError)
     try:
         with open(file_path, "r") as read_file:
             data = load(read_file, Loader=Loader) or {}

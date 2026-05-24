@@ -1,12 +1,19 @@
 # Simple module for functions needed for handling errors
 from pathlib import Path
+from .print import cprint
+from .log import log
 import traceback
+import sys
+import logging
+sys.path.append("libs")
+from rich.traceback import install
+install(show_locals=True)
 
 def exception_exit(e):
-    print(f"{type(e).__name__} has occured...\n")
-    print("as such exiting program, please send the follow sections to developers:\n")
-    print(traceback.format_exc())
-    print("\nSettings:")
+    cprint(f"{type(e).__name__} has occured...\n")
+    cprint("as such exiting program, please send the follow sections to developers:\n")
+    cprint(traceback.format_exc())
+    cprint("\nSettings:")
     try:
         settings_path = Path(__file__).parent.parent / "settings" / "settings.yaml"
         settings_path = settings_path.resolve()
@@ -15,12 +22,14 @@ def exception_exit(e):
             print(f.read())
 
     except FileNotFoundError:
-        print("Settings file is missing. Reinstall config file or set the path properly.")
+        log("Settings file is missing.", logging.CRITICAL) 
+        log("Reinstall config file or set the path properly.", logging.DEBUG)
 
     except PermissionError:
-        print(f"No permission to read (and maybe write) settings file try reinstalling the file or manually running:\nchmod a+rw {settings_path}\n")
-        print("If that doesn't work report to repo.")
+        log("No permission to read (and maybe write) settings file\n", logging.CRITICAL)
+        log(f"try reinstalling the file or manually running:\nchmod a+rw {settings_path} If that doesn't work report to repo.", logging.DEBUG)
 
     except Exception as e:
-        print(f"Unexpected error: {type(e).__name__}: {e}\n Check file integrity or reinstall.")
+        log(f"Unexpected error: {type(e).__name__}: {e}\n", logging.CRITICAL)
+        log("Check file integrity or reinstall.", logging.DEBUG)
     raise SystemExit from e

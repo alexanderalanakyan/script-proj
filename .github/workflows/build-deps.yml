@@ -37,3 +37,4 @@ jobs:
           commit_message: Build bins
           branch: bins
           file_pattern: ./src/bin/*
+          push_options: --force

@@ -21,8 +21,8 @@ jobs:
         run: rm ./src/bin/gum || echo "gum not built yet"
       - name: Build bin
         run: cd ./src/modules/gum && go build -o ../bin/gum
-      - name: Copy LICENSE
-        run: cp ./LICENSE ../bin/
+      #- name: Copy LICENSE
+      # run: cp ./LICENSE ../bin/
       - name: Add+Commit+Push changes
         run: git add . && git commit -m "Building required bins" && git push
 

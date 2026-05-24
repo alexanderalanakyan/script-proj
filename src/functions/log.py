@@ -1,17 +1,17 @@
 import sys
 import logging
-sys.path.append("libs")
+sys.path.append('libs')
 from rich.logging import RichHandler
 
 logging.basicConfig(
-    level="NOTSET",
-    format="%(message)s",
-    datefmt="[%X]",
+    level='NOTSET',
+    format='%(message)s',
+    datefmt='[%X]',
     handlers=[RichHandler(rich_tracebacks=True)]
 )
 
-logger = logging.getLogger("rich")
-def log(msg="None", level=logging.NOTSET):
+logger = logging.getLogger('rich')
+def log(msg='None', level=logging.NOTSET):
     if level==logging.NOTSET:
         logger.info(msg)
     elif level==logging.DEBUG:
@@ -21,5 +21,5 @@ def log(msg="None", level=logging.NOTSET):
     elif level==logging.ERROR:
         logger.error(msg)
     elif level==logging.CRITICAL:
-        msg+="\n a fatal error has happened exiting..."
+        msg+='\n a fatal error has happened exiting...'
         logger.critical(msg)

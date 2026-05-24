@@ -87,7 +87,7 @@ packages = [
   "libnotify",
   "dunst",
   "udiskie",
-  "qt5-wayland", 
+  "qt5-wayland",
   "qt6-wayland"
 ]
 
@@ -98,7 +98,7 @@ packages=["wl-clipboard"]
 packages=["quickshell"]
 
 [user.screenshot]
-packages=["grim", "slurp"] 
+packages=["grim", "slurp"]
 
 
 [user.notes]

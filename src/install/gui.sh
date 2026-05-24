@@ -3,7 +3,7 @@
 if [ -z "$TMUX" ]; then
 tmux
 tmux set-option status on
-fi 
+fi
 
 
 if ! curl -fsS https://www.google.com/generate_204 >/dev/null; then
@@ -13,7 +13,7 @@ iwctl
 fi
 
 timezone=$(curl http://ipapi.co/timezone || curl http://ip-api.com/line/?fields=timezone)
-if [ ! -z "$timezone" ] && [ "$timezone" ] 
+if [ ! -z "$timezone" ] && [ "$timezone" ]
 
 declare -A pkgs=(
     [tput]="ncurses"
@@ -43,7 +43,7 @@ while true; do
             gsub(/NAME=|"/, "", $1)
             print "/dev/"$1
         }'
-    ))  
+    ))
   fs=$(lsblk -pnro NAME,FSTYPE | awk -v dev="$devi" '$1 == dev {print $2}')
   if [ -z "$fs" ]; then
     echo "no filesystem found"

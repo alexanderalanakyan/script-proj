@@ -32,4 +32,3 @@ EOF
 
 pac "$packages"
 notes "$packages"
-

@@ -66,5 +66,3 @@ EOF
 
 # 6. Cleanup
 echo "Installation complete. Rebooting is recommended. Check FSTAB at /mnt/etc/fstab, run arch-chroot /mnt, then passwd for setting root password."
-
-

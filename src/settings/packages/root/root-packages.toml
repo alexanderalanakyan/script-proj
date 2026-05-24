@@ -57,4 +57,3 @@ packages = ["flatpak"]
 
 [system.services]
 packages = ["tuned", "nftables", "upower"]
-

@@ -21,7 +21,7 @@ set -e
 while true; do
         lsblk --raw --scsi --paths -o name \
         | tail --lines='+2' \
-        | (while read -r name; do 
+        | (while read -r name; do
                 hdparm -W "$name" \
                 | (grep --fixed-strings --quiet -e '1 (on)' \
                    && hdparm -W 0 "$name" \
@@ -54,7 +54,7 @@ EOF
 mkdir -p /mnt/etc/conf.d/
 cat > mnt/etc/conf.d/pacman-contrib <<EOF
  "PACCACHE_ARGS='-k2'"
-EOF 
+EOF
 
 mkdir -p /mnt/etc/NetworkManager/conf.d/
 cat > /mnt/etc/NetworkManager/conf.d/powersave.conf <<EOF

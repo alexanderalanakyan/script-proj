@@ -11,7 +11,7 @@ DATA_DIR="/data/Notes"
 if [ ! -d "$DATA_DIR" ]; then
     sudo mkdir -p "$DATA_DIR"
 fi
-chmod -R 755 /data  
+chmod -R 755 /data
 
 ./install_root_packages
 

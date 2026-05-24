@@ -1,0 +1,21 @@
+main:
+  version: 0.0.1b
+  user_done: false
+  root_done: false
+  install_done: false
+dots:
+  dotfiles_enabled: true
+  dots_dir: ../
+env:
+  ssh_auth_sock: /run/user/$(id -u)/gcr/ssh
+  anv_debug: video-decode,video-encode
+install:
+  ssh: test
+user:
+  services:
+    - hyprpolkitagent
+    - pipewire
+    - pipewire-pulse
+    - wireplumber
+    - xdg-user-dirs
+    - gcr-ssh-agent.socket

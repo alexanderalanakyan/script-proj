@@ -1,0 +1,58 @@
+name: build deps
+on: [workflow_call]
+
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  format:
+    name: go
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: true
+          submodules: true
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: './src/modules/gum/go.mod'
+          cache: true
+          cache-dependency-path: './src/modules/gum/go.sum'
+
+      - name: Remove bin
+        run: rm ./src/bin/* || echo "not built"
+
+      - name: Build bin and copy LICENSE
+        run: |
+          cd ./src/modules/gum
+          go build -o ../../bin/gum
+          cp ./LICENSE ../../bin/gum_LICENSE
+      - name: Cache Rust
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            src/modules/impala
+          cache-target-dir: true
+      - name: Build Rust binary
+        run: |
+          cargo build --release --manifest-path src/modules/impala/Cargo.toml --target-dir src/bin
+          rm -rf src/bin/release
+          cp src/bin/release/impala src/bin/impala
+          cp src/modules/impala/LICENSE src/bin/impala_LICENSE
+
+      - name: Commit changes to bins branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git checkout -B bins
+          git add src/bin
+          git commit -m "Build bins" || exit 0
+          git push origin bins --force
+      - name: PR request
+        run: gh pr create -B master -H bins --title 'PR for bins by GH actions' --body 'Made by GH actions' || gh pr list --search head:$(git branch --show-current)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

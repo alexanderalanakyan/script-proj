@@ -1,0 +1,3 @@
+[submodule "src/modules/impala"]
+	path = src/modules/impala
+	url = https://github.com/pythops/impala

@@ -26,7 +26,10 @@ jobs:
         run: rm ./src/bin/* || echo "not built"
 
       - name: Build bin and copy LICENSE
-        run: cd ./src/modules/gum && go build -o ../bin/gum && cp ./LICENSE ../bin/LICENSE
+        run: |
+          cd ./src/modules/gum
+          go build -o ../../bin/gum
+          cp ./LICENSE ../../bin/LICENSE
 
       - name: Git Auto Commit
         uses: stefanzweifel/git-auto-commit-action@v7.1.0

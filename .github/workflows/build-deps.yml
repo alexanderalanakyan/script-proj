@@ -13,11 +13,13 @@ jobs:
           # Value already defaults to true, but `persist-credentials` is required to push new commits to the repository.
           persist-credentials: true
           submodules: true
-      - name: Setup Go 1.25.x
-        uses: actions/setup-go@v5
+      - name: Setup Go 
+        uses: actions/setup-go@v6
         with:
-          # Semantic version range syntax or exact version of Go
-          go-version: '1.25.x'
+          go-version-file: './src/modules/gum/go.mod'
+          cache: true
+          cache-dependency-path: './src/modules/gum/go.sum'
+          token: ${{ github.token }}
       - name: Remove bin
         run: rm ./src/bin/gum || echo "gum not built yet"
       - name: Build bin and copy LICENSE

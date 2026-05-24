@@ -31,7 +31,8 @@ jobs:
           go build -o ../../bin/gum
           cp ./LICENSE ../../bin/gum_LICENSE
       - name: Build
-        run: cd ./src/modules/impala  && cargo build --target-dir '../../bins/' && cp ./LICENSE ../../bin/impala_LICENSE
+        run: cargo build --release --manifest-path src/modules/impala/Cargo.toml --target-dir src/bin \
+            && cp src/bin/release/impala src/bin/impala && cp src/modules/impala/LICENSE src/bin/impala_LICENSE
 
       - name: Commit changes to bins branch
         run: |

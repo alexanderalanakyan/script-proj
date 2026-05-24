@@ -1,29 +1,36 @@
 name: build deps
 on: [push]
+
+permissions:
+  contents: write
+
 jobs:
   format:
     name: go
     runs-on: ubuntu-latest
-    permissions: write-all
+
     steps:
       - uses: actions/checkout@v6
         with:
-          ref: ${{ github.head_ref }}
-          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
           persist-credentials: true
           submodules: true
-      - name: Setup Go 
+
+      - name: Setup Go
         uses: actions/setup-go@v6
         with:
           go-version-file: './src/modules/gum/go.mod'
           cache: true
           cache-dependency-path: './src/modules/gum/go.sum'
-          token: ${{ github.token }}
+
       - name: Remove bin
-        run: rm ./src/bin/gum || echo "gum not built yet"
+        run: rm ./src/bin/* || echo "not built"
+
       - name: Build bin and copy LICENSE
         run: cd ./src/modules/gum && go build -o ../bin/gum && cp ./LICENSE ../bin/LICENSE
+
       - name: Git Auto Commit
         uses: stefanzweifel/git-auto-commit-action@v7.1.0
         with:
-            commit_message: Build bins
+          commit_message: Build bins
+          branch: master
+          file_pattern: src/bin/*

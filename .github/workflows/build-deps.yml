@@ -9,6 +9,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: ${{ github.head_ref }}
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
           # Value already defaults to true, but `persist-credentials` is required to push new commits to the repository.
           persist-credentials: true
           submodules: true
@@ -23,3 +24,5 @@ jobs:
         run: cd ./src/modules/gum && go build -o ../bin/gum && cp ./LICENSE ../bin/LICENSE
       - name: Git Auto Commit
         uses: stefanzweifel/git-auto-commit-action@v7.1.0
+        with:
+            commit_message: Build bins

@@ -9,7 +9,7 @@ import traceback
 import tomllib
 
 config = configparser.ConfigParser()
-config.read('../settings/settings.ini')
+config.read("../settings/settings.ini")
 
 
 def run(cmd):
@@ -17,13 +17,13 @@ def run(cmd):
     try:
         subprocess.run(cmd, check=True, text=True)
     except subprocess.CalledProcessError as e:
-        print('An error has occured! Please report this:')
-        print('\n-Errors-\n')
+        print("An error has occured! Please report this:")
+        print("\n-Errors-\n")
         print(traceback.format_exc)
-        print('\n-Stdout/err-\n')
+        print("\n-Stdout/err-\n")
         print(f"\n{e.stderr}")
         print(f"\n{e.stdout}")
-        print('\n-Settings-\n')
+        print("\n-Settings-\n")
         print_settings()
         raise SystemExit from e
     print(f"Ran command, {' '.join(cmd)} with user {getpass.getuser()}")
@@ -39,23 +39,23 @@ def print_settings():
 
 def pacman_install(package_names):
     """Installs a list of pacman packages"""
-    if getpass.getuser() == 'root':
+    if getpass.getuser() == "root":
         command = [
-            'pacman',
-            '-S',
-            '--needed',
-            '--noconfirm',
+            "pacman",
+            "-S",
+            "--needed",
+            "--noconfirm",
         ] + package_names
-    elif shutil.which('sudo'):
+    elif shutil.which("sudo"):
         command = [
-            'sudo',
-            'pacman',
-            '-S',
-            '--needed',
-            '--noconfirm',
+            "sudo",
+            "pacman",
+            "-S",
+            "--needed",
+            "--noconfirm",
         ] + package_names
     else:
-        print('You dont have sudo manually install via pacman to continue (somehow)')
+        print("You dont have sudo manually install via pacman to continue (somehow)")
         raise SystemExit from RuntimeError
     run(command)
 
@@ -63,10 +63,10 @@ def pacman_install(package_names):
 def flatpak_install(package_names):
     """Install a list of flathub packages"""
     command = [
-        'flatpak',
-        'install',
-        '--noninteractive',
-        '-y',
+        "flatpak",
+        "install",
+        "--noninteractive",
+        "-y",
     ] + package_names
     run(command)
 
@@ -76,19 +76,19 @@ def yay_install(package_names):
     Install a list of packages from the AUR using yay as a wrapper,
     while checking if yay exists
     """
-    if shutil.which('yay'):
-        if getpass.getuser() == 'root':
-            print('Please run as an actual user...')
+    if shutil.which("yay"):
+        if getpass.getuser() == "root":
+            print("Please run as an actual user...")
             raise SystemExit
-        pacman_install(['base-devel', 'git'])
-        run(['git', 'clone', 'https://aur.archlinux.org/yay.git'])
-        run(['cd yay', '&&', 'makepkg -si'])
+        pacman_install(["base-devel", "git"])
+        run(["git", "clone", "https://aur.archlinux.org/yay.git"])
+        run(["cd yay", "&&", "makepkg -si"])
     command = [
-        'yay',
-        '-S',
-        '--needed',
-        '--noconfirm',
-        '--cleanafter',
+        "yay",
+        "-S",
+        "--needed",
+        "--noconfirm",
+        "--cleanafter",
     ] + package_names
     run(command)
 
@@ -101,7 +101,7 @@ def open_packages(dir_name, other: str | None):
     else:
         packages += f"/{other}-packages.toml"
     try:
-        with open(packages, 'rb') as file:
+        with open(packages, "rb") as file:
             data = tomllib.load(file)
     except PermissionError as e:
         print(f"You seemingly dont have permission to access {e.filename}... \n")
@@ -111,9 +111,9 @@ def open_packages(dir_name, other: str | None):
 
     def walk(d: dict, li: list):
         for k, v in d.items():
-            if k == 'notes':
+            if k == "notes":
                 continue
-            if isinstance(v, list) and k == 'packages':
+            if isinstance(v, list) and k == "packages":
                 for i in v:
                     li.append(i)
             elif isinstance(v, dict):

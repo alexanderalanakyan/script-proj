@@ -41,6 +41,6 @@ jobs:
           git commit -m "Build bins" || exit 0
           git push origin bins --force
       - name: PR request
-        run: gh pr create -B master -H bins --title 'PR for bins by GH actions' --body 'Made by GH actions'
+        run: gh pr create -B master -H bins --title 'PR for bins by GH actions' --body 'Made by GH actions' || gh pr edit -B master -H bins --title 'PR for bins by GH actions' --body 'Made by GH actions'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

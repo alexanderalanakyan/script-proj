@@ -6,9 +6,9 @@ from functions import error_handler as error
 try:
     from libs.yaml import CLoader as Loader, CDumper as Dumper
 except ImportError:
-    from libs.yaml import Loader, Dumper
+    from libs.yaml import Loader
 
-cfg_file = (Path(__file__).parent.parent / 'settings' / 'settings.yaml').resolve()
+cfg_file = (Path(__file__).parent.parent / "settings" / "settings.yaml").resolve()
 
 
 def write(section, key, value=None, file_path=cfg_file):
@@ -22,7 +22,7 @@ def write(section, key, value=None, file_path=cfg_file):
     else:
         data[section][key] = value
     try:
-        with open(file_path, 'w', encoding='utf-8') as write_file:
+        with open(file_path, "w", encoding="utf-8") as write_file:
             dump(data, write_file)
     except PermissionError as e:
         error.exception_exit(e)
@@ -33,7 +33,7 @@ def rread(file_path=cfg_file):
     if not file_path.exists():
         error.exception_exit(FileNotFoundError)
     try:
-        with open(file_path, 'r') as read_file:
+        with open(file_path, "r") as read_file:
             data = load(read_file, Loader=Loader) or {}
     except PermissionError as e:
         error.exception_exit(e)

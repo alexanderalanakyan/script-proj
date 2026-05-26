@@ -15,5 +15,5 @@ while true; do
         # mkfs.btrfs -L $label "/dev/$selected_partition"
     fi
 
-    gum confirm "Exit?" && break || continue  
+    gum confirm "Exit?" && break || continue
 done

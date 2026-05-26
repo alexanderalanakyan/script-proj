@@ -1,0 +1,96 @@
+user:
+  apps:
+    packages:
+      - qbittorrent
+    utils:
+      packages:
+        - mission-center
+  utils:
+    search:
+      packages:
+        - ripgrep
+        - ripgrep-all
+        - fd
+    navigation:
+      packages:
+        - nnn
+        - broot
+    graphics:
+      packages:
+        - imagemagick
+    network:
+      packages:
+        - curl
+    cli:
+      packages:
+        - bat
+        - eza
+        - tldr
+    shell:
+      packages:
+        - mcfly
+        - zoxide
+    extra:
+      packages:
+        - astroterm
+        - navi
+        - tealdeer
+    system:
+      packages:
+        - strace
+        - rsync
+        - uutils-coreutils
+    archive:
+      packages:
+        - tar
+        - gzip
+        - bzip2
+        - xz
+        - zip
+        - unzip
+        - p7zip
+  shell:
+    packages:
+      - zsh
+  appearance:
+    shell:
+      packages:
+        - starship
+  printers:
+    packages:
+      - cups
+      - avahi
+      - nss-mdns
+      - lib32-glibc
+  secrets:
+    packages:
+      - gnome-keyring
+      - libsecret
+      - seahorse
+  desktop:
+    packages:
+      - hyprland
+    extra:
+      packages:
+        - hyprpolkitagent
+        - xdg-desktop-portal-hyprland
+        - xdg-desktop-portal-gtk
+        - libnotify
+        - dunst
+        - udiskie
+        - qt5-wayland
+        - qt6-wayland
+    clipboard:
+      packages:
+        - wl-clipboard
+    widgets:
+      packages:
+        - quickshell
+  screenshot:
+    packages:
+      - grim
+      - slurp
+  notes:
+    packages:
+      - yay
+      - howdoi

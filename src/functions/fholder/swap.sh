@@ -8,4 +8,3 @@ else
     selected_partition=$(printf "%s\n" $partitions | gum choose --header "Which partition would you like to edit swap on?")
     gum confirm "Make $selected_partition swap?" && mkswap "/dev/$selected_partition"
 fi
-

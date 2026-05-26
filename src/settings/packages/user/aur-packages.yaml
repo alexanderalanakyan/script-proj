@@ -1,0 +1,21 @@
+user:
+  aur:
+    desktop:
+      applauncher:
+        packages:
+          - vicinae-bin
+      extra:
+        packages:
+          - journalctl-desktop-notification
+      util:
+        extra:
+          packages:
+            - neo
+            - pondidle-git
+    printers:
+      drivers:
+        packages:
+          - brother-hl2270dw
+    apps:
+      packages:
+        - golazo

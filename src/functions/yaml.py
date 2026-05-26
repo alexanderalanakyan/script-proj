@@ -1,7 +1,7 @@
 # Helper functions for YAML style config
 from pathlib import Path
 from libs.yaml import load, dump
-from functions import error_handler as error
+from .error_handler import exception_exit
 
 try:
     from libs.yaml import CLoader as Loader, CDumper as Dumper
@@ -25,16 +25,16 @@ def write(section, key, value=None, file_path=cfg_file):
         with open(file_path, "w", encoding="utf-8") as write_file:
             dump(data, write_file)
     except PermissionError as e:
-        error.exception_exit(e)
+        exception_exit(e)
 
 
-def rread(file_path=cfg_file):
+def read(file_path=cfg_file):
     # Function for reading certain files
     if not file_path.exists():
-        error.exception_exit(FileNotFoundError)
+        exception_exit(FileNotFoundError)
     try:
         with open(file_path, "r") as read_file:
             data = load(read_file, Loader=Loader) or {}
     except PermissionError as e:
-        error.exception_exit(e)
+        exception_exit(e)
     return data

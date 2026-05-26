@@ -1,0 +1,33 @@
+base:
+  packages:
+    - linux
+    - linux-lts
+    - linux-firmware
+    - sof-firmware
+    - man-db
+    - man-pages
+    - nvim
+    - networkmanager
+    - dnsmasq
+    - efibootmgr
+    - grub
+    - mesa
+  cpu:
+    amd:
+      packages:
+        - amd-ucode
+  gpu:
+    intel:
+      packages:
+        - vulkan-intel
+        - intel-media-driver
+        - vpl-gpu-rt
+        - libva-utils
+  extra:
+    packages:
+      - zram-generator
+      - reflector
+      - logrotate
+      - pacutils
+      - fwupd
+      - pacman-contrib

@@ -1,0 +1,5 @@
+user:
+  flathub:
+    packages:
+      - app.zen_browser.zen
+      - com.vscodium.codium

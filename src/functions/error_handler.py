@@ -1,6 +1,6 @@
 # Simple module for functions needed for handling errors
 from pathlib import Path
-from .print import cprint
+from .print import console_print
 from .log import log
 import traceback
 import sys
@@ -13,10 +13,12 @@ install(show_locals=True)
 
 
 def exception_exit(e):
-    cprint(f"{type(e).__name__} has occured...\n")
-    cprint("as such exiting program, please send the follow sections to developers:\n")
-    cprint(traceback.format_exc())
-    cprint("\nSettings:")
+    console_print(f"{type(e).__name__} has occured...\n")
+    console_print(
+        "as such exiting program, please send the follow sections to developers:\n"
+    )
+    console_print(traceback.format_exc())
+    console_print("\nSettings:")
     try:
         settings_path = Path(__file__).parent.parent / "settings" / "settings.yaml"
         settings_path = settings_path.resolve()

@@ -38,6 +38,12 @@ if [[ ! -d "./libs/yaml" ]]; then
     mv ./libs/pyyaml.d/pyyaml-6.0.3/lib/yaml ./libs/yaml && cp ./libs/pyyaml.d/pyyaml-6.0.3/LICENSE ./libs/yaml/LICENSE
 fi
 
+if [[ ! -f "./bin/yq" ]]; then
+curl -L https://github.com/mikefarah/yq/releases/download/v4.53.2/yq_linux_amd64 -o ./bin/yq
+fi
+
 if [ -z $(which jq) ]; then
     pacman -S jq
 fi
+
+chmod +x ./bin/*

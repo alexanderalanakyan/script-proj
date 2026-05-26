@@ -1,21 +1,137 @@
-main:
-  version: 0.0.1b
-  user_done: false
-  root_done: false
-  install_done: false
 dots:
   dotfiles_enabled: true
   dots_dir: ../
-env:
-  ssh_auth_sock: /run/user/$(id -u)/gcr/ssh
+
+env_variables:
   anv_debug: video-decode,video-encode
+  ssh_auth_sock: /run/user/$(id -u)/gcr/ssh
+
 install:
-  ssh: test
+  packages:
+  - linux
+  - linux-lts
+  - linux-firmware
+  - sof-firmware
+  - man-db
+  - man-pages
+  - nvim
+  - networkmanager
+  - dnsmasq
+  - efibootmgr
+  - grub
+  - mesa
+  - amd-ucode
+  - vulkan-intel
+  - intel-media-driver
+  - vpl-gpu-rt
+  - libva-utils
+  - zram-generator
+  - reflector
+  - logrotate
+  - pacutils
+  - fwupd
+  - pacman-contrib
+  - noto-fonts
+  - noto-fonts-extra
+  - noto-fonts-cjk
+  - noto-fonts-emoji
+  - ttf-jetbrains-mono-nerd
+  - ttf-fira-code
+  - ttf-dejavu-nerd
+  - ttf-victor-mono-nerd
+  - ttf-roboto
+  - ttf-ubuntu-font-family
+  - ttf-liberation
+  - cantarell-fonts
+  - powerline-fonts
+  - ttf-font-awesome
+  - sudo
+  - xdg-user-dirs
+  - git
+  - base-devel
+  - xdg-utils
+  - scdoc
+  - ghostty
+  - pipewire
+  - wireplumber
+  - pipewire-alsa
+  - pipewire-pulse
+  - pipewire-audio
+  - pipewire-jack
+  - bluez
+  - bluez-utils
+  - qbittorrent
+  - mission-center
+  - tuned
+  - nftables
+  - upower
+  - app.zen_browser.zen
+  - com.vscodium.codium
+  - ripgrep
+  - ripgrep-all
+  - fd
+  - nnn
+  - broot
+  - imagemagick
+  - curl
+  - bat
+  - eza
+  - tldr
+  - mcfly
+  - zoxide
+  - astroterm
+  - navi
+  - tealdeer
+  - strace
+  - rsync
+  - uutils-coreutils
+  - tar
+  - gzip
+  - bzip2
+  - xz
+  - zip
+  - unzip
+  - p7zip
+  - zsh
+  - starship
+  - cups
+  - avahi
+  - nss-mdns
+  - lib32-glibc
+  - gnome-keyring
+  - libsecret
+  - seahorse
+  - hyprland
+  - hyprpolkitagent
+  - xdg-desktop-portal-hyprland
+  - xdg-desktop-portal-gtk
+  - libnotify
+  - dunst
+  - udiskie
+  - qt5-wayland
+  - qt6-wayland
+  - wl-clipboard
+  - quickshell
+  - grim
+  - slurp
+  - yay
+  - howdoi
+  - vicinae-bin
+  - journalctl-desktop-notification
+  - neo
+  - pondidle-git
+  - brother-hl2270dw
+  - golazo
+main:
+  install_done: false
+  root_done: false
+  user_done: false
+  version: 0.0.1b
 user:
   services:
-    - hyprpolkitagent
-    - pipewire
-    - pipewire-pulse
-    - wireplumber
-    - xdg-user-dirs
-    - gcr-ssh-agent.socket
+  - hyprpolkitagent
+  - pipewire
+  - pipewire-pulse
+  - wireplumber
+  - xdg-user-dirs
+  - gcr-ssh-agent.socket

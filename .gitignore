@@ -31,10 +31,10 @@ tempCodeRunnerFile.py
 # Ruff stuff:
 .ruff_cache/
 # stuff:
-src/bin/*
-src/libs/*
 target/
+libs/
 bin/
+.dotfiles/
 release/
 debug/
 src/modules/*

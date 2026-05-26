@@ -1,0 +1,48 @@
+system:
+  fonts:
+    packages:
+      - noto-fonts
+      - noto-fonts-extra
+      - noto-fonts-cjk
+      - noto-fonts-emoji
+      - ttf-jetbrains-mono-nerd
+      - ttf-fira-code
+      - ttf-dejavu-nerd
+      - ttf-victor-mono-nerd
+      - ttf-roboto
+      - ttf-ubuntu-font-family
+      - ttf-liberation
+      - cantarell-fonts
+      - powerline-fonts
+      - ttf-font-awesome
+  base:
+    packages:
+      - sudo
+      - xdg-user-dirs
+      - git
+      - base-devel
+      - xdg-utils
+      - scdoc
+  terminal:
+    packages:
+      - ghostty
+  audio:
+    packages:
+      - pipewire
+      - wireplumber
+      - pipewire-alsa
+      - pipewire-pulse
+      - pipewire-audio
+      - pipewire-jack
+  network:
+    packages:
+      - bluez
+      - bluez-utils
+  apps:
+    packages:
+      - flatpak
+  services:
+    packages:
+      - tuned
+      - nftables
+      - upower

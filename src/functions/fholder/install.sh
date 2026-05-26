@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-gum confirm "Your BIOS is in $(cat /sys/firmware/efi/fw_platform_size) mode is this correct?" || $(echo "Refer to your motherboard manual" && exit 1) 
+gum confirm "Your BIOS is in $(cat /sys/firmware/efi/fw_platform_size) mode is this correct?" || $(echo "Refer to your motherboard manual" && exit 1)
 while ! curl -fsS https://www.google.com/generate_204 >/dev/null; do
     [[ $? -gt 0 ]] && break || continue
     clear
@@ -30,6 +30,3 @@ export PATH="$PWD/bin:$PATH"
 #     source ./mkfs.sh
 #     source ./mount.sh
 # fi
-
-
-
